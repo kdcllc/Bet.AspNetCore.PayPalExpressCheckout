@@ -33,6 +33,6 @@
         /// <summary>
         /// Specify Success URL.
         /// </summary>
-        public string SuccessUrl { get; set; } = string.Empty;
+        public string ReturnUrl { get; set; } = string.Empty;
     }
 }

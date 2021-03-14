@@ -8,6 +8,9 @@ The example utilizes the following libraries for communication with PayPal
 - [`PayPalCheckoutSdk`](https://www.nuget.org/packages/PayPalCheckoutSdk/1.0.3)
 - [`PayPalHttp`](https://www.nuget.org/packages/PayPalHttp/1.0.0)
 
+- https://github.com/paypal/paypalhttp_dotnet
+- https://github.com/paypal/Checkout-NET-SDK
+
 ### Issues
 WSL2 has an issue with not able to serve to localhost.
 WSL2 must be restarted to make it work:

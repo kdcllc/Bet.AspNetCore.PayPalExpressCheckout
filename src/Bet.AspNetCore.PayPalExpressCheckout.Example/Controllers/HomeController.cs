@@ -1,22 +1,24 @@
-﻿using Bet.AspNetCore.PayPalExpressCheckout.Example.Models;
+﻿using System.Diagnostics;
+
+using Bet.AspNetCore.PayPalExpressCheckout.Example.Models;
+using Bet.AspNetCore.PayPalExpressCheckout.Options;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 
 namespace Bet.AspNetCore.PayPalExpressCheckout.Example.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly PayPalExpressCheckoutOptions _options;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(
+            IOptionsSnapshot<PayPalExpressCheckoutOptions> options,
+            ILogger<HomeController> logger)
         {
+            _options = options.Value;
             _logger = logger;
         }
 
@@ -28,6 +30,30 @@ namespace Bet.AspNetCore.PayPalExpressCheckout.Example.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        [Route("Success")]
+        public IActionResult Success()
+        {
+            return View();
+        }
+
+        [Route("Cancel")]
+        public IActionResult Cancel()
+        {
+            return View();
+        }
+
+        [Route("Checkout")]
+        public IActionResult Checkout()
+        {
+            var model = new CheckoutFormViewModel
+            {
+                ClientId = _options.ClientId,
+                ReturnUrl = _options.ReturnUrl
+            };
+
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
