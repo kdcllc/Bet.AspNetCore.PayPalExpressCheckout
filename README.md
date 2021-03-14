@@ -1,5 +1,7 @@
 # Bet.AspNetCore.PayPalExpressCheckout
-AspNetCore Example of using PayPal Express Checkout
+
+The goal of this repo is to provide a light reusable library for PayPal Express Check out and also provide with AspNetCore Example of using PayPal Express Checkout.
+
 
 The example utilizes the following libraries for communication with PayPal
 
