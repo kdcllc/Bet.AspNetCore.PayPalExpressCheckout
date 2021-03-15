@@ -4,7 +4,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/c91o24tsjuafemqr?svg=true)](https://ci.appveyor.com/project/kdcllc/bet-aspnetcore-paypalexpresscheckout)
 [![NuGet](https://img.shields.io/nuget/v/Bet.AspNetCore.PayPalExpressCheckout.svg)](https://www.nuget.org/packages?q=Bet.AspNetCore.PayPalExpressCheckout)
 ![Nuget](https://img.shields.io/nuget/dt/Bet.AspNetCore.PayPalExpressCheckout)
-[![feedz.io](https://img.shields.io/badge/endpoint.svg?url=https://f.feedz.io/kdcllc/kdcllc/shield/Bet.AspNetCore.PayPalExpressCheckout/latest)](https://f.feedz.io/kdcllc/bet-aspnetcore/packages/Bet.AspNetCore.PayPalExpressCheckout/latest/download)
+[![feedz.io](https://img.shields.io/badge/endpoint.svg?url=https://f.feedz.io/kdcllc/kdcllc/shield/Bet.AspNetCore.PayPalExpressCheckout/latest)](https://f.feedz.io/kdcllc/kdcllc/packages/Bet.AspNetCore.PayPalExpressCheckout/latest/download)
 
 
 [![buymeacoffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/vyve0og)
