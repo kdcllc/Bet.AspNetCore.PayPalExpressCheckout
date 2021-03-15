@@ -9,5 +9,7 @@ namespace Bet.AspNetCore.PayPalExpressCheckout.Example.Models
         public string CartId { get; set; } = Guid.NewGuid().ToString();
 
         public string ReturnUrl { get; set; }
+
+        public string CancelUrl { get; set; }
     }
 }

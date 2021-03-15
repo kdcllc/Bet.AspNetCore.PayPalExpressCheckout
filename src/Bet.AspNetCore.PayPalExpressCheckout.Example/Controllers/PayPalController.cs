@@ -51,9 +51,8 @@ namespace Bet.AspNetCore.PayPalExpressCheckout.Example.Controllers
             try
             {
                 // correlate cartid with result.id for paypal transactions
-
                 var request = new OrdersCreateRequest();
-                var orderRequest = BuildSimpleOrder(new Random((int)DateTime.Now.Ticks).Next(1, 100).ToString(), cartId);
+                var orderRequest = BuildSimpleOrder(new Random((int)DateTime.Now.Ticks).Next(10, 1000).ToString(), cartId);
 
                 request.Headers.Add("prefer", "return=representation");
                 request.RequestBody(orderRequest);
@@ -63,10 +62,11 @@ namespace Bet.AspNetCore.PayPalExpressCheckout.Example.Controllers
 
                 return Ok(result);
             }
-            catch (HttpException ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex, "PayPal Create Order Exception");
-                throw;
+
+                return Ok(ex.GetPayPalError());
             }
         }
 
@@ -81,6 +81,12 @@ namespace Bet.AspNetCore.PayPalExpressCheckout.Example.Controllers
             try
             {
                 var request = new OrdersCaptureRequest(orderId);
+
+                // in order for mock responses to work, the payer test account must be enabled in the dashboard.
+                // https://developer.paypal.com/docs/api-basics/sandbox/error-conditions/#enable-negative-testing
+                // codes: https://developer.paypal.com/docs/api/orders/v2/#errors
+                // request.Headers.Add("PayPal-Mock-Response", "{\"mock_application_codes\": \"INTERNAL_SERVICE_ERROR\"}");
+
                 request.Prefer("return=representation");
                 request.RequestBody(new OrderActionRequest());
 
@@ -89,10 +95,11 @@ namespace Bet.AspNetCore.PayPalExpressCheckout.Example.Controllers
 
                 return Ok(result);
             }
-            catch (HttpException ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex, "PayPal Approve Order Exception");
-                throw;
+
+                return Ok(ex.GetPayPalError());
             }
         }
 
@@ -118,7 +125,7 @@ namespace Bet.AspNetCore.PayPalExpressCheckout.Example.Controllers
                        .RuleFor(u => u.PostalCode, (f, u) => f.Address.ZipCode())
                        .RuleFor(u => u.CountryCode, (f, u) => f.Address.CountryCode()).Generate();
 
-            var rdn = new Random(100);
+            var rdn = new Random((int)DateTime.Now.Ticks);
 
             return new OrderRequest()
             {
@@ -132,7 +139,7 @@ namespace Bet.AspNetCore.PayPalExpressCheckout.Example.Controllers
                 {
                     new PurchaseUnitRequest
                     {
-                        CustomId = $"CustomId {rdn.NextDouble()}",
+                        CustomId = $"CustomId {rdn.Next(10, 1000)}",
                         InvoiceId = invoiceId,
                         Description = $"Description {cartId}",
                         ShippingDetail = new ShippingDetail
@@ -147,8 +154,10 @@ namespace Bet.AspNetCore.PayPalExpressCheckout.Example.Controllers
                         }
                     }
                 },
-                //Payer = new Payer
-                //{
+
+                // ProcessingInstruction = ""
+                // Payer = new Payer
+                // {
                 //    AddressPortable = address,
                 //    Email = "payal_test@email.com",
                 //    Name = new Name
@@ -156,7 +165,7 @@ namespace Bet.AspNetCore.PayPalExpressCheckout.Example.Controllers
                 //        GivenName = "John",
                 //        Surname = "Smith"
                 //    },
-                //}
+                // }
             };
         }
     }

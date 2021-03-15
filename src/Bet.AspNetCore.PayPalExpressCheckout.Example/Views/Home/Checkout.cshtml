@@ -1,11 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
-}
-
-@section header{
-<style>
-    /* blah */
-</style>
+    ViewData["Title"] = "Checkout Page";
 }
 
 @model CheckoutFormViewModel
@@ -17,6 +11,7 @@
 <script>
     let cartId = '@Model.CartId';
     let returnUrl = '@Model.ReturnUrl';
+    let cancelUrl = '@Model.CancelUrl';
 </script>
 
 <script src="js/paypal.js"></script>
