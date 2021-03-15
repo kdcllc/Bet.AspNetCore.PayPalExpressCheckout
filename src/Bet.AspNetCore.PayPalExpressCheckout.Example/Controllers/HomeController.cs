@@ -50,7 +50,8 @@ namespace Bet.AspNetCore.PayPalExpressCheckout.Example.Controllers
             var model = new CheckoutFormViewModel
             {
                 ClientId = _options.ClientId,
-                ReturnUrl = _options.ReturnUrl
+                ReturnUrl = _options.ReturnUrl,
+                CancelUrl = _options.CancelUrl,
             };
 
             return View(model);

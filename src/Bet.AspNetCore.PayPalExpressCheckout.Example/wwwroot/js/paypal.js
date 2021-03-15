@@ -19,6 +19,17 @@ paypal.Buttons({
             }
             return res.json();
         }).then(function (data) {
+
+            var errorDetail = Array.isArray(data.details) && data.details[0];
+            if (errorDetail) {
+                var msg = 'Sorry, your transaction could not be processed.';
+                if (errorDetail.description) msg += '\n\n' + errorDetail.description;
+                if (data.debug_id) msg += ' (' + data.debug_id + ')';
+                // Show a failure message
+                window.location = cancelUrl + '/?error=' + encodeURI(msg);
+                //return alert(msg);
+            }
+
             return data.id;
         });
     },
@@ -35,6 +46,9 @@ paypal.Buttons({
 
             return res.json();
         }).then(function (orderData) {
+
+            var msg = 'Sorry, your transaction could not be processed.';
+
             // Three cases to handle:
             //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
             //   (2) Other non-recoverable errors -> Show a failure message
@@ -50,11 +64,19 @@ paypal.Buttons({
             }
 
             if (errorDetail) {
-                var msg = 'Sorry, your transaction could not be processed.';
                 if (errorDetail.description) msg += '\n\n' + errorDetail.description;
                 if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
                 // Show a failure message
-                return alert(msg);
+                window.location = cancelUrl + '/?error=' + encodeURI(msg);
+                return;
+                //return alert(msg);
+            }
+
+            if (orderData.Name !== "") {
+                msg += "\n\n" + orderData.name + ' ' + orderData.message;
+                window.location = cancelUrl + '/?error=' + encodeURI(msg);
+                return;
+                //return alert(msg);
             }
 
             // Show a success message to the buyer

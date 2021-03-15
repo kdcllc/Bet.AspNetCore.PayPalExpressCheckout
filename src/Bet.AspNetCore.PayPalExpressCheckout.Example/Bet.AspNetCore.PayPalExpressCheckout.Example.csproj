@@ -5,6 +5,7 @@
     <UserSecretsId>aspnet-Bet.AspNetCore.PayPalExpressCheckout.Example-5D7B5C38-0B66-4922-8199-0AA406F90691</UserSecretsId>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
